@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #007bff;
+        }
+
+        label {
+            margin-top: 10px;
+            display: block;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        input[type="tel"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #28a745;
+        
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+        a{
+            text-decoration: none;
+            color: none;
+        }
+    </style>
+
+    <script>
+       function validate(){
+        var b = document.getElementById("email").value;
+            var emailvalidator = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            
+            if(!emailvalidator.test(b)){
+                return false;
+            };
+
+            
+            var a = document.getElementById("phonenumber").value;
+            var phonevalidator = /^\d{10}$/;
+            if(phonevalidator.test(a)){
+                return false;
+            };
+
+            verify();
+
+           
+        }
+        function verify(){
+            
+            var a = document.getElementById("verify");
+            a.style.display="block";
+            console.log("display unblocked");
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Register</h2>
+        <form  th:action="@{/create}" id="createaccount" method="post">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="fullname" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email"  required>
+
+            <label for="phonenumber">Phone Number</label>
+            <input type="tel" id="phonenumber" name="phonenumber" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit" onsubmit="validate()">Verify<a th:href="@{/login}"></a></button>
+
+        </form>
+
+        <!-- <form th:action="@{/verifyes}"  method="post">
+            <div id="verify">
+            <div class="otp-input-group">
+                <input type="text" name="otp" class="otp-input" maxlength="4" placeholder="Enter OTP" required>  
+            </div>
+        </div>
+        <button type="submit">Submit<a th:href="@{/login}"></a></button>
+        </form> -->
+
+
+       
+        <div class="footer">
+            <p>Already have an account? <a  th:href="@{/login}">Login here</a></p>
+        </div>
+    </div>
+</body>
+</html>
+
+   

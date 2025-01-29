@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify OTP</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+        .otp-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        .otp-container h2 {
+            margin-bottom: 20px;
+            color: #007BFF;
+        }
+        .otp-container p {
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+        .otp-input {
+            width: 200px;
+            padding: 10px;
+            margin: 0 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            text-align: center;
+            font-size: 18px;
+            background-color: #f9f9f9;
+        }
+        .otp-input:focus {
+            border-color: #007BFF;
+            outline: none;
+            background-color: #fff;
+        }
+        .otp-button {
+            background-color: #007BFF;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 20px;
+        }
+        .otp-button:hover {
+            background-color: #0056b3;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: #007BFF;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .otp-input-group {
+            display: flex;
+            justify-content: center;
+            
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="otp-container">
+        <h2>Verify OTP</h2>
+        <p>Please enter the OTP sent to your email/phone.</p>
+        <form id="verifyid" method="post">
+            <div class="otp-input-group">
+                <input type="text" name="otp" class="otp-input" maxlength="4" required>  
+            </div>
+            <button type="submit" class="otp-button"><a th:href="@{/newpassword}"></a>Verify OTP</button>
+        </form>
+        <a href="/login" class="back-link">Back to Login</a>
+    </div>
+</body>
+</html>

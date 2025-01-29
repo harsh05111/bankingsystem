@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http:/www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users Page</title>
+</head>
+    <style>
+        /* Basic reset for padding and margins */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body and page layout */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fa;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* Sidebar styles */
+        .sidebar {
+            background-color: #2c3e50;
+            color: white;
+            width: 250px;
+            padding-top: 30px;
+            height: 100%;
+            position: fixed;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 30px;
+           
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 15px;
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            border-bottom: 1px solid #34495e;
+        }
+
+        .sidebar a:hover {
+            background-color: #34495e;
+        }
+
+        /* Main content area */
+        .main-content {
+            margin-left: 250px;
+            padding: 30px;
+            width: 100%;
+        }
+
+        /* Header styles */
+        .header {
+            background-color: #34495e;
+            color: white;
+            padding: 15px;
+            text-align: right;
+        }
+
+        /* Table styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            border-radius: 5px;
+            overflow: hidden;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        table th, table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table th {
+            background-color: #2c3e50;
+            color: white;
+            font-size: 16px;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Button styles */
+        .add-button,.download-data {
+            background-color: #1abc9c;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .add-button,.download-data :hover {
+            background-color: #16a085;
+        }
+
+        #update{
+         background-color:green; /* Green */
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 16px;
+        }
+        #delete{
+      background-color: red; /* Green */
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color:  #cc0000; /* Darker green on hover */
+    }
+
+    #editModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    /* width: 400px; */
+}
+
+
+input[type="email"],[type="text"]{
+    width: 230px;
+    
+}
+input[type="submit"]{
+    background-color:green; /* Green */
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 16px;
+}
+
+
+    
+    </style>
+    <script>
+       
+       function edit(fullname, email, phonenumber, bankbalance) {
+        document.getElementById('editModal').style.display = 'block';
+        document.getElementById('fullname').value = fullname;
+        document.getElementById('email').value = email;
+        document.getElementById('phonenumber').value = phonenumber;
+        document.getElementById('bankbalance').value = bankbalance;
+
+        // Show the modal
+       
+    }
+
+    // Close the modal when the close button is clicked
+    function closeEditModal() {
+        document.getElementById("editModal").style.display = "none";
+    }
+    </script>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Admin Panel</h2>
+        <a th:href="@{/admin/adminpanel}">Dashboard</a>
+        <a href="#">Users</a>
+        <!-- <a href="#">Settings</a>
+        <a href="#">Reports</a> -->
+        <a th:href="@{/home}">Logout</a>
+    </div>
+
+    <!-- Main content -->
+    <div class="main-content">
+        <div class="header">
+            Welcome, Admin
+        </div>
+
+        <!-- Add User Button -->
+        <a th:href="@{/createaccount}">
+            <button class="add-button" >Add New User</button></a>
+            <form th:action="@{/admin/userdata}" method="get">
+            <button class="download-data" >Download User Data</button>
+            </form>
+
+        <!-- Users Table -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Bank Balance</th>
+                    <!-- <th>Update</th> -->
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="user : ${users}">
+                    <td th:text="${user.fullname}"></td>
+                    <td th:text="${user.email}"></td>
+                    <td th:text="${user.phonenumber}"></td>
+                    <td th:text="${user.bankbalance}"></td>
+                    <!-- <td>
+                       
+                           
+                <button id="update" onclick="edit('${user.fullname}', '${user.email}', '${user.phonenumber}')">Update</button>
+                        <div id="editModal" style="display:none;">
+                            <div class="modal-content">
+                                <h2>Edit User Details</h2>
+                                <form id="updateuser" th:action="@{/admin/{fullname}/update(fullname=${user.fullname})}" method="post">
+                                   
+                                    NAME: <input type="text" name="fullname" id="fullname-${user.fullname}" th:value="${user.fullname}" required>
+                                    EMAIL: <input type="email" name="email" id="email-${user.fullname}" th:value="${user.email}" required>
+                                    PHONENUMBER:<input type="text" name="phonenumber" id="phonenumber-${user.fullname}" th:value="${user.phonenumber}" required>
+                                    <input type="submit" value="Save Changes">
+                                    <span id="delete" onclick="closeEditModal()" class="close">close</span>
+                                </form>
+                            </div>
+                        </div>  
+                     </td> -->
+                    <td>
+                        <form th:action="@{/admin/{myid}/delete(myid =${user.id})}" method="post">
+                            <input type="submit" value="Delete Account"  id="delete">
+                        </form>
+                     </td>
+                </tr>
+                
+            </tbody>
+        </table>
+        
+    </div>
+
+</body>
+</html>

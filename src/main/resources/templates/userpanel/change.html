@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http:/www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update User Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 50%;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        [type="password"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Update Your Details</h2>
+
+        <form id="updatedetails" method="post">
+            <div class="form-group">
+                <label for="phone">Phone Number:</label>
+                <input type="text" id="name" name="fullname" th:value="${user.get().fullname}" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email: </label>
+                <input type="email" id="email" name="email" th:value ="${user.get().email}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="phonenumber" th:value="${user.get().phonenumber}" required>
+            </div>
+
+            <!-- <div class="form-group">
+                <label for="phone">Password:</label>
+                <input type="password" id="phone" name="password" th:value="${user.password}" required>
+            </div> -->
+
+            <div class="form-group">
+                <input type="submit" value="Update Details">
+                <input type="submit" value="Back To Panel">
+                
+
+            </div>
+            <div class="form-group">
+               
+            </div>
+
+            <div class="error" th:if="${errorMessage != null}" th:text="${errorMessage}"></div>
+        </form>
+        <form th:action="@{/userpanel/{myid}/delete(myid =${user.get().id})}" method="post">
+            <input type="submit" value="Delete Account" >
+</form>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Panel - Banking System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        nav {
+            margin: 20px 0;
+        }
+        nav a {
+            margin: 0 15px;
+            color: #007bff;
+            text-decoration: none;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .account-summary, .transaction-history {
+            margin: 20px 0;
+        }
+        h2 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #007bff;
+            color: white;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        
+        #bankbalance{
+            font-size: large;
+            font-weight: bold;
+            
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Welcome to Your BANKING SYSTEM</h1>
+</header>
+
+<nav>
+    <a th:href="@{/userpanel/{myid}/deposit(myid=${user.id})}">Credit Money</a>
+    <a th:href="@{/userpanel/{myid}/debit(myid=${user.id})}">Debit Money</a>
+    <a th:href="@{/userpanel/{myid}/transaction(myid=${user.id})}">Transactions</a>
+    <a th:href="@{/userpanel/{myid}/change(myid=${user.id})}">Personal Details</a>
+    <!-- <a th:href="@{/userpanel/{fullname}/loan(fullname=${user.fullname})}">loan</a> -->
+    <a th:href="@{/home}">Log Out</a>
+    
+</nav>
+
+<div class="container">
+    <div class="account-summary">
+        <h2>Account Summary</h2>
+        <p>Account Holder Name: <span th:text="${user.fullname}"></span></p>
+        <p>Account Balance: <span  id="bankbalance"  th:text="${user.bankbalance}"></p>
+        <p>EMail: <span th:text="${user.email}"></p>
+        <p>Phone number: <span th:text="${user.phonenumber}"></p>
+    </div>
+
+    <!-- <div class="transaction-history">
+        <h2>Transaction History</h2>
+        <table>
+            <tr>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Balance</th>
+            </tr>
+            <tr th:each="transaction : ${transactions}">
+                <td th:text="${transaction.id}"></td>
+                <td th:text="${transaction.amount}"></td>
+                <td th:text="${transaction.type}"></td>
+                <td th:text="${transaction.time}"></td>
+            </tr>
+            <tr>
+                <td>2024-10-05</td>
+                <td>Withdrawal</td>
+                <td>-$200.00</td>
+                <td>$4,432.00</td>
+            </tr>
+            <tr>
+                <td>2024-10-10</td>
+                <td>Payment</td>
+                <td>-$50.00</td>
+                <td>$4,382.00</td>
+            </tr>
+        </table>
+    </div> -->
+</div>
+
+<!-- <footer>
+    &copy; 2024 Banking System. All rights reserved.
+</footer> -->
+
+</body>
+</html>
